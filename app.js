@@ -5,40 +5,39 @@ const searchBook = () => {
     const searchBook = document.getElementById("searchBook");
     const searchBookText = searchBook.value;
     searchBook.value = "";
-    console.log(searchBookText);
+
 
     //  Fetching URL
     const url = `http://openlibrary.org/search.json?q=${searchBookText}`;
     fetch(url)
         .then(response => response.json())
-        .then(data => displaySearchResult(data.docs))
+        .then(data => authorName(data.docs))
 }
 
-const displaySearchResult = (bookName) => {
-
-    const displayResult = document.getElementById('displaySearchResult')
 
 
-    bookName.forEach(Book => {
+const authorName = author => {
 
-        const div = document.createElement('div');
-        div.classList.add("col");
-        div.innerHTML = `<div class="card h-100">
-        <img src="https://covers.openlibrary.org/b/id/${Book.cover_i}-M.jpg" class="card-img-top img-fluid h-75" alt="...">
-            <div class="card-body text-center">
-                <h4 class="card-title">${Book.title}</h4>
-                <h5 class="card-title"></h5>
-                <h5 class="card-title">${Book.publisher}</h5>
-                <h5 class="card-title">${Book.first_publish_year}</h5>
-                <div>
-                    <button onclick='' type="button" class="btn btn-primary">Team Detail</button>
-                </div>
-            </div>
-    </div>`;
+    for (const auth of author) {
+        console.log(auth);
 
-
-        displayResult.appendChild(div);
-    });
+        // console.log(auth.author_key.length ? auth.author_key[0] : "undefined");
+        if (typeof auth.author_key === 'undefined') {
+            let authorKey = "Undefined";
+            const url2 = `https://openlibrary.org/authors/${authorKey}.json`
+            fetch(url2)
+                .then(res => res.json())
+                .then(author => console.log(author.name));
+        }
+        else {
+            let authorKey = auth.author_key[0];
+            const url2 = `https://openlibrary.org/authors/${authorKey}.json`
+            fetch(url2)
+                .then(res => res.json())
+                .then(author => console.log(author.name));
+        }
+    }
 }
+
 
 
