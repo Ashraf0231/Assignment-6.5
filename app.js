@@ -17,7 +17,7 @@ const searchBook = () => {
 const displaySearchResult = (bookName) => {
 
     const displayResult = document.getElementById('displaySearchResult')
-    const fn = text1();
+
 
     bookName.forEach(Book => {
 
@@ -27,7 +27,7 @@ const displaySearchResult = (bookName) => {
         <img src="https://covers.openlibrary.org/b/id/${Book.cover_i}-M.jpg" class="card-img-top img-fluid h-75" alt="...">
             <div class="card-body text-center">
                 <h4 class="card-title">${Book.title}</h4>
-                <h5 class="card-title">${fn}</h5>
+                <h5 class="card-title"></h5>
                 <h5 class="card-title">${Book.publisher}</h5>
                 <h5 class="card-title">${Book.first_publish_year}</h5>
                 <div>
@@ -39,11 +39,6 @@ const displaySearchResult = (bookName) => {
 
         displayResult.appendChild(div);
     });
-}
-
-const text1 = () => {
-
-    console.log("Text");
 }
 
 
